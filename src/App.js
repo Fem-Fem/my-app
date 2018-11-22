@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SpotifyWebApi form 'spotify-web-api-js';
+import SpotifyWebApi from 'spotify-web-api-js';
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-            React JS
+            <a href= 'http://localhost:3000'>Log In</a>
         </header>
       </div>
     );
