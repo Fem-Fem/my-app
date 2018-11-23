@@ -1,10 +1,12 @@
-class CreateUsers < ActiveRecord::Migration[4.2]
+class CreateComments < ActiveRecord::Migration[4.2]
 	def change
 		create_table :comments do |t|
 			t.string :content
 			t.string :category
 			t.string :user_id
 			t.string :post_id
+			t.integer :upvotes
+			t.integer :downvotes
 		end
 	end
 end
@@ -29,4 +31,56 @@ class CreateUsers < ActiveRecord::Migration[4.2]
 			t.string :password_digest
 		end
 	end
+end
+
+
+class User < ActiveRecord::Base
+	has_many :posts
+	has_many :comments
+end
+
+class Post < ActiveRecord::Base
+	has_many :comments
+	belongs_to :user
+
+	def order_by_rating
+	end
+
+	def order_by_newness
+	end
+
+	def order_by_category
+	end
+end
+
+class Comment < ActiveRecord::Base
+	belongs_to :post
+	belongs_to :user
+
+	def mood
+	end
+end
+
+class UsersController < ActionController::Base
+  def new
+  end
+
+  def create
+  	@user = User.new
+  	@user.name = params[:user][:name]
+   	@user.height = params[:user][:height]
+   	@user.happiness = params[:user][:happiness]
+   	@user.nausea = params[:user][:nausea]
+   	@user.tickets = params[:user][:tickets]
+   	@user.password = params[:user][:password]
+   	@user.save
+   	binding.pry
+  	redirect_to user_path(@user)
+  end
+
+  def show
+  end
+
+  def index
+  end
 end
